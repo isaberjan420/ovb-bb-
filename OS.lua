@@ -352,26 +352,6 @@ local BR = Security:CreateToggle({
     end,
  })
 
-local GP = Security:CreateSection("Exploiter Protection")
-
-local AFT = Security:CreateToggle({
-    Name = "Anti Fling",
-    CurrentValue = false,
-    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        AF = Value
-    end,
- })
-
-local ATT = Security:CreateToggle({
-    Name = "Anti Touch (might delete later)",
-    CurrentValue = false,
-    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        AT = Value
-    end,
- })
-
 RunService.RenderStepped:Connect(function()
     if SACD == false then
         if Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health < 1 then
@@ -420,6 +400,7 @@ Players.PlayerAdded:Connect(function(v)
     if v.Name == Players.LocalPlayer.Name then
         task.wait()
     else
+        wait(1)
         if v.leaderstats.Glove == "The Flex" then
             if Flex_p == true then
                 local boz = Instance.new("Part", workspace)
@@ -452,32 +433,6 @@ Players.PlayerAdded:Connect(function(v)
                 RunService.RenderStepped:Connect(function()
                     boz.Position = v.Character:FindFirstChildWhichIsA("Part").Position
                 end)
-            end
-        end
-    end
-end)
-
-RunService.RenderStepped:Connect(function()
-    if AF == true then
-        for _,v in pairs(Players:GetPlayers()) do
-            if AF == true then
-                for i,z in pairs(v.Character:GetDescendants()) do
-                    if v:IsA("Part") then
-                        v.CanCollide = false
-                    end
-                end
-            end
-        end
-    end
-end)
-
-RunService.RenderStepped:Connect(function()
-    if AT == true then
-        for _,v in pairs(Players.LocalPlayer:GetDescendants()) do
-            if AT == true then
-                if v:IsA("Part") then
-                    v.CanTouch = false
-                end
             end
         end
     end
