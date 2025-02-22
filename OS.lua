@@ -117,6 +117,12 @@ local function Get_Closest_Player(Part)
       if player.Character and player.Character:FindFirstChild("Humanoid") and player.Character:FindFirstChild("Humanoid").Health > 0 then
         if player.Name == Players.LocalPlayer.Name then
             task.wait()
+        elseif player.Name == "imHDsaucer" then
+            task.wait()
+            print("attempt to hit steve")
+        elseif player.Name == "Skorostrel_11" then
+            task.wait()
+            print("attempt to hit steve")
         elseif IsSteve(player.Character) then
             task.wait()
             print("attempt to hit steve")
