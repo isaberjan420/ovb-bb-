@@ -16,6 +16,7 @@ local Flex_p = false
 local Void_p1 = false
 local Void_p2 = false
 local AF = false
+local Delay = 0.91
 local AT = false
 local WL= {"themagewizard2", "someone_w0w", "missayla86"}
 local T = {
@@ -196,18 +197,25 @@ local Picker = SA:CreateDropdown({
    Callback = function(Options)
       if Options[1] == "Default" then
          CG = "b"
+         Delay = 0.91
         elseif Options[1] == "Extended" then
          CG = "b"
+         Delay = 0.82
         elseif Options[1] == "Snow" then
          CG = "SnowHit"
+         Delay = 0.65
         elseif Options[1] == "Squid" then
          CG = "GeneralHit"
+         Delay = 0.56
         elseif Options[1] == "Reaper" then
-         CG = "ReaperHit"   
+         CG = "ReaperHit"
+         Delay = 0.7
         elseif Options[1] == "Killstreak" then
-         CG = "KSHit"   
+         CG = "KSHit" 
+         Delay = 0.6
         elseif Options[1] == "Orbit" then
-         CG = "Orbihit"   
+         CG = "Orbihit"
+         Delay = 0.56
         end
     end,
 })
@@ -396,7 +404,7 @@ RunService.RenderStepped:Connect(function()
                         if check() == true then
                             SACD = true
                             ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
-                            wait(0.5)
+                            task.wait(Delay + 0.05)
                             SACD = false
                         end
                     end
@@ -406,7 +414,7 @@ RunService.RenderStepped:Connect(function()
                     if check() == true then
                         SACD = true
                         ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
-                        wait(0.5)
+                        wait(Delay + 0.05)
                         SACD = false
                     end
                 end
