@@ -115,7 +115,7 @@ local function Get_Closest_Player(Part)
     local minDistance = math.huge
   
     for _, player in pairs(game:GetService("Players"):GetPlayers()) do
-      if player.Character and player.Character:FindFirstChild("Humanoid") and player.Character:FindFirstChild("Humanoid").Health > 1 then
+      if player.Character and player.Character:FindFirstChild("Humanoid") and player.Character:FindFirstChild("Humanoid").Health > 1 and Players.LocalPlayer.Character:FindFirstChild("Humanoid").Health > 1 then
         if player.Name == Players.LocalPlayer.Name then
             task.wait()
         elseif player.Name == "imHDsaucer" then
