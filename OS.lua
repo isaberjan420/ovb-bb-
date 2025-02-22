@@ -186,18 +186,18 @@ local Picker = SA:CreateDropdown({
    Callback = function(Options)
       if Options[1] == "Default" then
          CG = "b"
-      if Options[1] == "Extended" then
+        elseif Options[1] == "Extended" then
          CG = "b"
-      elseif Options[1] == "Snow" then
+        elseif Options[1] == "Snow" then
          CG = "SnowHit"
-      elseif Options[1] == "Squid" then
+        elseif Options[1] == "Squid" then
          CG = "GeneralHit"
-      elseif Options[1] == "Killstreak" then
+        elseif Options[1] == "Killstreak" then
          CG = "KSHit"   
-      elseif Options[1] == "Orbit" then
+        elseif Options[1] == "Orbit" then
          CG = "Orbihit"   
-      end
-   end,
+        end
+    end,
 })
 
 local AC = SA:CreateSection("Aura Customization")
