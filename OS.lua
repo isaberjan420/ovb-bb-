@@ -120,7 +120,7 @@ local function Get_Closest_Player(Part)
         elseif player.Name == "imHDsaucer" then
             task.wait()
             print("attempt to hit steve")
-        elseif player.Name == "Skorostrel_11" then
+        elseif player.Name == "missayla86" then
             task.wait()
             print("attempt to hit steve")
         elseif IsSteve(player.Character) then
