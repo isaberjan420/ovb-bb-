@@ -362,7 +362,7 @@ RunService.RenderStepped:Connect(function()
     if SACD == false then
         if Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health < 1 then
             SACD = true
-            wait(4)
+            wait(5)
             SACD = false
         else
             if ragdolled(Players.LocalPlayer.Character) then
