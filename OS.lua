@@ -396,7 +396,7 @@ RunService.RenderStepped:Connect(function()
                         if check() == true then
                             SACD = true
                             ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
-                            wait(math.random(36, 50)/100)
+                            wait(0.41)
                             SACD = false
                         end
                     end
@@ -406,7 +406,7 @@ RunService.RenderStepped:Connect(function()
                     if check() == true then
                         SACD = true
                         ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
-                        wait(math.random(36, 50)/100)
+                        wait(0.41)
                         SACD = false
                     end
                 end
