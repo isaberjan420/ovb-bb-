@@ -15,7 +15,7 @@ local OVERKILL_p = false
 local Flex_p = false
 local Void_p1 = false
 local Void_p2 = false
-local Method = "A"
+local AF = false
 local T = {
     TextColor = Color3.fromRGB(192, 192, 192),
 
@@ -349,6 +349,17 @@ local BR = Security:CreateToggle({
     end,
  })
 
+local GP = Security:CreateSection("Exploiter Protection")
+
+local AFT = Security:CreateToggle({
+    Name = "Anti Fling",
+    CurrentValue = false,
+    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        AF = Value
+    end,
+ })
+
 RunService.RenderStepped:Connect(function()
     if SACD == false then
         if Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health < 1 then
@@ -429,6 +440,20 @@ Players.PlayerAdded:Connect(function(v)
                 RunService.RenderStepped:Connect(function()
                     boz.Position = v.Character:FindFirstChildWhichIsA("Part").Position
                 end)
+            end
+        end
+    end
+end)
+
+RunService.RenderStepped:Connect(function()
+    if AF == true then
+        for _,v in pairs(Players:GetPlayers()) do
+            if AF == true then
+                for i,z in pairs(v.Character:GetDescendants()) do
+                    if v:IsA("Part") then
+                        v.CanCollide = false
+                    end
+                end
             end
         end
     end
