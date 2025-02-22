@@ -17,6 +17,7 @@ local Void_p1 = false
 local Void_p2 = false
 local AF = false
 local AT = false
+local WL= {"themagewizard2", "someone_w0w", "missayla86"}
 local T = {
     TextColor = Color3.fromRGB(192, 192, 192),
 
@@ -121,6 +122,9 @@ local function Get_Closest_Player(Part)
             task.wait()
             print("attempt to hit steve")
         elseif player.Name == "missayla86" then
+            task.wait()
+            print("attempt to hit steve")
+        elseif table.find(WL, player.Name) then
             task.wait()
             print("attempt to hit steve")
         elseif IsSteve(player.Character) then
