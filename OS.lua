@@ -189,7 +189,7 @@ local GP = SA:CreateSection("Glove Picker")
 
 local Picker = SA:CreateDropdown({
    Name = "Available Gloves",
-   Options = {"Default", "Extended", "Snow", "Squid", "Killstreak", "Orbit"},
+   Options = {"Default", "Extended", "Snow", "Squid", "Reaper", "Killstreak", "Orbit"},
    CurrentOption = {"Default"},
    MultipleOptions = false,
    Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -202,6 +202,8 @@ local Picker = SA:CreateDropdown({
          CG = "SnowHit"
         elseif Options[1] == "Squid" then
          CG = "GeneralHit"
+        elseif Options[1] == "Reaper" then
+         CG = "ReaperHit"   
         elseif Options[1] == "Killstreak" then
          CG = "KSHit"   
         elseif Options[1] == "Orbit" then
@@ -368,9 +370,13 @@ local BR = Security:CreateToggle({
     end,
  })
 
+local function test()
+    print(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head.Name)
+end
+
 local function check()
     local a = false
-    local success, result = pcall(print(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head.Name))
+    local success, result = pcall(test)
     if success then
         a = true
     end
