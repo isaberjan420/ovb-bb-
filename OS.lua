@@ -368,6 +368,15 @@ local BR = Security:CreateToggle({
     end,
  })
 
+local function check()
+    local a = false
+    local success, result = pcall(print(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head.Name))
+    if success then
+        a = true
+    end
+
+    return a
+end
 RunService.RenderStepped:Connect(function()
     if SACD == false then
         if Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health < 1 then
@@ -378,18 +387,22 @@ RunService.RenderStepped:Connect(function()
             if ragdolled(Players.LocalPlayer.Character) then
                 if BRL == true then
                     if SAT == true then
+                        if check() == true then
+                            SACD = true
+                            ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
+                            wait(0.3)
+                            SACD = false
+                        end
+                    end
+                end
+            else
+                if SAT == true then
+                    if check() == true then
                         SACD = true
                         ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
                         wait(0.3)
                         SACD = false
                     end
-                end
-            else
-                if SAT == true then
-                    SACD = true
-                    ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
-                    wait(0.3)
-                    SACD = false
                 end
             end
         end
