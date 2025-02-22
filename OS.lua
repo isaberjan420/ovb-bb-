@@ -179,17 +179,23 @@ local GP = SA:CreateSection("Glove Picker")
 
 local Picker = SA:CreateDropdown({
    Name = "Available Gloves",
-   Options = {"Default","Killstreak", "Snow"},
+   Options = {"Default", "Extended", "Snow", "Squid", "Killstreak", "Orbit"},
    CurrentOption = {"Default"},
    MultipleOptions = false,
    Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Options)
       if Options[1] == "Default" then
          CG = "b"
-      elseif Options[1] == "Killstreak" then
-         CG = "KSHit"
+      if Options[1] == "Extended" then
+         CG = "b"
       elseif Options[1] == "Snow" then
          CG = "SnowHit"
+      elseif Options[1] == "Squid" then
+         CG = "GeneralHit"
+      elseif Options[1] == "Killstreak" then
+         CG = "KSHit"   
+      elseif Options[1] == "Orbit" then
+         CG = "Orbihit"   
       end
    end,
 })
