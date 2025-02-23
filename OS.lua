@@ -6,7 +6,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local CG = "b"
-local AR = 25
+local AR = 20
 local SACD = false
 local SAT = false
 local BRL = false
@@ -137,6 +137,9 @@ local function Get_Closest_Player(Part)
         elseif reversed(player.Character) then
             task.wait()
             print("attempt to hit reversed")
+        elseif (Part.Position - player.Character.Head.Position).Magnitude > AR then
+            task.wait()
+            print("out of range")
         else
             local distance = (Part.Position - player.Character.Head.Position).Magnitude -- Calculate distance
             if distance < minDistance then -- Check if closer than current closest
@@ -403,6 +406,7 @@ RunService.RenderStepped:Connect(function()
                     if SAT == true then
                         if check() == true then
                             SACD = true
+                            ReplicatedStorage:FindFirstChild(CG):FireServer("ReplicateSound")
                             ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
                             task.wait(Delay + 0.05)
                             SACD = false
@@ -413,6 +417,7 @@ RunService.RenderStepped:Connect(function()
                 if SAT == true then
                     if check() == true then
                         SACD = true
+                        ReplicatedStorage:FindFirstChild(CG):FireServer("ReplicateSound")
                         ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
                         wait(Delay + 0.05)
                         SACD = false
