@@ -1,6 +1,6 @@
 repeat task.wait() until game:IsLoaded()
 wait(1)
-
+getgenv().SecureMode = true
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -233,10 +233,10 @@ local AT = SA:CreateToggle({
 
 local Range = SA:CreateSlider({
    Name = "Aura Range",
-   Range = {10, 90},
+   Range = {0, 20},
    Increment = 1,
    Suffix = "Studs",
-   CurrentValue = 25,
+   CurrentValue = 20,
    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
          AR = Value
@@ -480,3 +480,10 @@ Players.PlayerAdded:Connect(function(v)
         end
     end
 end)
+
+Rayfield:Notify({
+   Title = "Celerity",
+   Content = "Successfully Loaded, Enjoy!",
+   Duration = 5,
+   Image = "check",
+})
