@@ -208,25 +208,25 @@ local Picker = SA:CreateDropdown({
    Callback = function(Options)
       if Options[1] == "Default" then
          CG = "b"
-         Delay = 0.91
+         Delay = 0.91/2
         elseif Options[1] == "Extended" then
          CG = "b"
-         Delay = 0.82
+         Delay = 0.82/2
         elseif Options[1] == "Snow" then
          CG = "SnowHit"
-         Delay = 0.65
+         Delay = 0.65/2
         elseif Options[1] == "Squid" then
          CG = "GeneralHit"
-         Delay = 0.56
+         Delay = 0.56/2
         elseif Options[1] == "Reaper" then
          CG = "ReaperHit"
-         Delay = 0.7
+         Delay = 0.7/2
         elseif Options[1] == "Killstreak" then
          CG = "KSHit" 
-         Delay = 0.6
+         Delay = 0.6/2
         elseif Options[1] == "Orbit" then
          CG = "Orbihit"
-         Delay = 0.56
+         Delay = 0.56/2
         end
     end,
 })
@@ -244,7 +244,7 @@ local AT = SA:CreateToggle({
 
 local Range = SA:CreateSlider({
    Name = "Aura Range",
-   Range = {0, 20},
+   Range = {0, 40},
    Increment = 1,
    Suffix = "Studs",
    CurrentValue = 20,
