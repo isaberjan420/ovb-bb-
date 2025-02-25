@@ -5,8 +5,8 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local LH = "Head"
-local HL = {"Head", "Torso", "Right Arm", "Left Arm"}
+local HL = {"Left Leg", "Right Leg", "Right Arm", "Left Arm"}
+local CRNT = 2
 local CG = "b"
 local AR = 20
 local SACD = false
@@ -21,6 +21,7 @@ local AF = false
 local Delay = 0.91
 local AT = false
 local WL= {"themagewizard2", "someone_w0w", "missayla86"}
+local RH = {"Roblox"}
 local T = {
     TextColor = Color3.fromRGB(192, 192, 192),
 
@@ -88,6 +89,8 @@ local function ragdolled(character)
     for i,v in pairs(character:GetChildren()) do
         if string.sub(v.Name, 1, 4) == "Fake" then
             r = true
+        elseif character.Ragdolled == true then
+            r = true
         end
     end
     return r
@@ -142,6 +145,9 @@ local function Get_Closest_Player(Part)
         elseif (Part.Position - player.Character.Head.Position).Magnitude > AR then
             task.wait()
             print("out of range")
+        elseif table.find(RH, player.Name) then
+            task.wait()
+            print("too fast")
         else
             local distance = (Part.Position - player.Character.Head.Position).Magnitude -- Calculate distance
             if distance < minDistance then -- Check if closer than current closest
@@ -407,16 +413,17 @@ RunService.RenderStepped:Connect(function()
                 if BRL == true then
                     if SAT == true then
                         if check() == true then
-                            local Rm = HL[math.random(1, 4)]
-                            if Rm == LH then
-                                print("lh")
+                            if CRNT == 5 then
+                                CRNT = 1
                             else
-                                SACD = true
-                                ReplicatedStorage:FindFirstChild(CG):FireServer("ReplicateSound")
-                                ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character:FindFirstChild(Rm))
-                                LH = Rm
-                                task.wait(Delay + 0.05)
-                                SACD = false
+                            SACD = true
+                            local clo = Get_Closest_Player(Players.LocalPlayer.Character.Head)
+                            wait(0.1)
+                            ReplicatedStorage:FindFirstChild(CG):FireServer(clo.Character:FindFirstChild(HL[CRNT]))
+                            CRNT += 1
+                            task.wait(Delay + 0.05)
+                            SACD = false
+                            wait(1)
                             end
                         end
                     end
@@ -424,16 +431,17 @@ RunService.RenderStepped:Connect(function()
             else
                 if SAT == true then
                     if check() == true then
-                        local Rm = HL[math.random(1, 4)]
-                        if Rm == LH then
-                            print("lh")
+                        if CRNT == 5 then
+                            CRNT = 1
                         else
                             SACD = true
-                            ReplicatedStorage:FindFirstChild(CG):FireServer("ReplicateSound")
-                            ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character:FindFirstChild(Rm))
-                            LH = Rm
+                            local clo = Get_Closest_Player(Players.LocalPlayer.Character.Head)
+                            wait(0.1)
+                            ReplicatedStorage:FindFirstChild(CG):FireServer(clo.Character:FindFirstChild(HL[CRNT]))
+                            CRNT += 1
                             task.wait(Delay + 0.05)
                             SACD = false
+                            wait(1)
                         end
                     end
                 end
