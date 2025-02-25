@@ -1,6 +1,5 @@
 repeat task.wait() until game:IsLoaded()
 wait(1)
-getgenv().SecureMode = true
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
