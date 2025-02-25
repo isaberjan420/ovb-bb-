@@ -5,7 +5,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local HL = {"Left Leg", "Right Leg", "Right Arm", "Left Arm"}
+local HL = {"Left Leg", "Right Leg", "Right Arm", "Left Arm", "Torso", "Head"}
 local CRNT = 2
 local CG = "b"
 local AR = 20
@@ -18,7 +18,7 @@ local Flex_p = false
 local Void_p1 = false
 local Void_p2 = false
 local AF = false
-local Delay = 0.5
+local Delay = 3
 local AT = false
 local WL= {"themagewizard2", "someone_w0w", "missayla86"}
 local RH = {"Roblox"}
@@ -145,9 +145,6 @@ local function Get_Closest_Player(Part)
         elseif (Part.Position - player.Character.Head.Position).Magnitude > AR then
             task.wait()
             print("out of range")
-        elseif table.find(RH, player.Name) then
-            task.wait()
-            print("too fast")
         else
             local distance = (Part.Position - player.Character.Head.Position).Magnitude -- Calculate distance
             if distance < minDistance then -- Check if closer than current closest
@@ -406,12 +403,13 @@ RunService.RenderStepped:Connect(function()
                 if BRL == true then
                     if SAT == true then
                         if check() == true then
-                            if CRNT == 5 then
+                            if CRNT == #HL + 1 then
                                 CRNT = 1
                             else
                             SACD = true
                             local clo = Get_Closest_Player(Players.LocalPlayer.Character.Head)
                             wait(0.1)
+                            print(CRNT)
                             ReplicatedStorage:FindFirstChild(CG):FireServer(clo.Character:FindFirstChild(HL[CRNT]))
                             CRNT += 1
                             task.wait(Delay + 0.05)
@@ -424,12 +422,13 @@ RunService.RenderStepped:Connect(function()
             else
                 if SAT == true then
                     if check() == true then
-                        if CRNT == 5 then
+                        if CRNT == #HL + 1 then
                             CRNT = 1
                         else
                             SACD = true
                             local clo = Get_Closest_Player(Players.LocalPlayer.Character.Head)
                             wait(0.1)
+                            print(CRNT)
                             ReplicatedStorage:FindFirstChild(CG):FireServer(clo.Character:FindFirstChild(HL[CRNT]))
                             CRNT += 1
                             task.wait(Delay + 0.05)
