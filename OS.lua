@@ -18,7 +18,7 @@ local Flex_p = false
 local Void_p1 = false
 local Void_p2 = false
 local AF = false
-local Delay = 0.91
+local Delay = 0.5
 local AT = false
 local WL= {"themagewizard2", "someone_w0w", "missayla86"}
 local RH = {"Roblox"}
@@ -208,25 +208,18 @@ local Picker = SA:CreateDropdown({
    Callback = function(Options)
       if Options[1] == "Default" then
          CG = "b"
-         Delay = 0.91/2
         elseif Options[1] == "Extended" then
          CG = "b"
-         Delay = 0.82/2
         elseif Options[1] == "Snow" then
          CG = "SnowHit"
-         Delay = 0.65/2
         elseif Options[1] == "Squid" then
          CG = "GeneralHit"
-         Delay = 0.56/2
         elseif Options[1] == "Reaper" then
          CG = "ReaperHit"
-         Delay = 0.7/2
         elseif Options[1] == "Killstreak" then
          CG = "KSHit" 
-         Delay = 0.6/2
         elseif Options[1] == "Orbit" then
          CG = "Orbihit"
-         Delay = 0.56/2
         end
     end,
 })
