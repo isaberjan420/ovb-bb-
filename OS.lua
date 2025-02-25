@@ -1,9 +1,12 @@
 repeat task.wait() until game:IsLoaded()
 wait(1)
+print("loading")
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local LH = "Head"
+local HL = {"Head", "Torso", "Right Arm", "Left Arm"}
 local CG = "b"
 local AR = 20
 local SACD = false
@@ -404,22 +407,33 @@ RunService.RenderStepped:Connect(function()
                 if BRL == true then
                     if SAT == true then
                         if check() == true then
-                            SACD = true
-                            ReplicatedStorage:FindFirstChild(CG):FireServer("ReplicateSound")
-                            ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
-                            task.wait(Delay + 0.05)
-                            SACD = false
+                            local Rm = HL[math.random(1, 4)]
+                            if Rm == LH then
+                                print("lh")
+                            else
+                                SACD = true
+                                ReplicatedStorage:FindFirstChild(CG):FireServer("ReplicateSound")
+                                ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character:FindFirstChild(Rm))
+                                LH = Rm
+                                task.wait(Delay + 0.05)
+                                SACD = false
+                            end
                         end
                     end
                 end
             else
                 if SAT == true then
                     if check() == true then
-                        SACD = true
-                        ReplicatedStorage:FindFirstChild(CG):FireServer("ReplicateSound")
-                        ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
-                        wait(Delay + 0.05)
-                        SACD = false
+                        if Rm == LH then
+                            print("lh")
+                        else
+                            SACD = true
+                            ReplicatedStorage:FindFirstChild(CG):FireServer("ReplicateSound")
+                            ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character:FindFirstChild(Rm))
+                            LH = Rm
+                            task.wait(Delay + 0.05)
+                            SACD = false
+                        end
                     end
                 end
             end
