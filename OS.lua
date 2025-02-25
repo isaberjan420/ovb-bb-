@@ -424,6 +424,7 @@ RunService.RenderStepped:Connect(function()
             else
                 if SAT == true then
                     if check() == true then
+                        local Rm = HL[math.random(1, 4)]
                         if Rm == LH then
                             print("lh")
                         else
