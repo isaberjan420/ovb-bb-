@@ -12,7 +12,9 @@ local SAT = false
 local BRL = false
 local Void_p1 = false
 local Void_p2 = false
-local Method = "A"
+local looptp = false
+local expt = "Roblox"
+local offset = 1
 local T = {
     TextColor = Color3.fromRGB(192, 192, 192),
 
@@ -77,6 +79,15 @@ Layer2.Touched:Connect(function(a)
     end 
 end)
 
+local function Back_Position(Part, Studs)
+    local Position = Part.Position
+    local CFrame = Part.CFrame
+    local Vector = -CFrame.LookVector
+  
+    local Output = Position + Vector * Studs
+    return Output
+end
+
 local function ragdolled(character)
     local r = false
     for i,v in pairs(character:GetChildren()) do
@@ -105,6 +116,20 @@ local function IsSteve(character)
         end
     end
     return a
+end
+
+local function loopgt()
+    while task.wait(0.01) do
+        if looptp = true then
+            for _,v in pairs(Players:GetPlayers()) do
+                if v.DisplayName == expt then
+                    local a = Back_Position(v.Character.PrimaryPart, -(offset))
+                    wait()
+                    Players.Character:MoveTo(a)
+                end
+            end
+        end
+    end
 end
 
 local function whitelist()
@@ -255,7 +280,7 @@ local BR = Security:CreateToggle({
     end,
  })
 
-local BR = Security:CreateToggle({
+local BR0 = Security:CreateToggle({
     Name = "Secondary Layer",
     CurrentValue = false,
     Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -263,6 +288,49 @@ local BR = Security:CreateToggle({
         Void_p2 = Value
     end,
  })
+
+local EC = Window:CreateTab("Exploiter Combat", "code")
+
+local TargetName = EC:CreateInput({
+   Name = "Target",
+   CurrentValue = "",
+   PlaceholderText = "Display Name",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+        expt = Text
+   end,
+})
+
+local TSET = EC:CreateButton({
+   Name = "Auto Pick Target",
+   Callback = function()
+        local a = Get_Closest_Player(Players.LocalPlayer.Character.Head).DisplayName
+        wait()
+       TargetName:Set(a)
+   end,
+})
+
+local Offset = EC:CreateSlider({
+   Name = "Offset",
+   Range = {0, 5},
+   Increment = 10,
+   Suffix = "Studs",
+   CurrentValue = 1,
+   Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        offset = Value
+   end,
+})
+
+local ECTGL = EC:CreateToggle({
+   Name = "Loop Teleport",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        looptp = Value
+   end,
+})
 
 RunService.RenderStepped:Connect(function()
     if SACD == false then
@@ -309,5 +377,7 @@ RunService.RenderStepped:Connect(function()
 end)
 
 local co1 = coroutine.create(whitelist)
+local co1 = coroutine.create(loopgt)
 
 coroutine.resume(co1)
+coroutine.resume(co2)
