@@ -346,7 +346,7 @@ RunService.RenderStepped:Connect(function()
                 if BRL == true then
                     if SAT == true then
                         local a = Get_Closest_Player(Players.LocalPlayer.Character.Head)
-                        wait()
+                        wait(0.02)
                         ReplicatedStorage:FindFirstChild(CG):FireServer(a.Character.Head)
                         wait(0.3)
                         SACD = false
@@ -356,7 +356,7 @@ RunService.RenderStepped:Connect(function()
                 if SAT == true then
                     SACD = true
                     local a = Get_Closest_Player(Players.LocalPlayer.Character.Head)
-                    wait()
+                    wait(0.02)
                     ReplicatedStorage:FindFirstChild(CG):FireServer(a.Character.Head)
                     wait(0.3)
                     SACD = false
