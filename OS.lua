@@ -15,6 +15,9 @@ local Void_p2 = false
 local looptp = false
 local expt = "Roblox"
 local offset = 1
+getgenv().wl1 = "a"
+getgenv().wl2 = "b"
+getgenv().wl3 = "c"
 local T = {
     TextColor = Color3.fromRGB(192, 192, 192),
 
@@ -159,6 +162,15 @@ local function Get_Closest_Player(Part)
         elseif table.find(Whitelist, player.Name) then
             task.wait()
             print("attempt to hit whitelisted")
+        elseif wl1 == player.DisplayName then
+            task.wait()
+            print("attempt to hit Wwwhitelisted")
+        elseif wl2 == player.DisplayName then
+            task.wait()
+            print("attempt to hit Wwwhitelisted")
+        elseif wl3 == player.DisplayName then
+            task.wait()
+            print("attempt to hit Wwwhitelisted")
         else
             local distance = (Part.Position - player.Character.Head.Position).Magnitude -- Calculate distance
             if distance < minDistance then -- Check if closer than current closest
@@ -288,6 +300,50 @@ local BR0 = Security:CreateToggle({
         Void_p2 = Value
     end,
  })
+
+local Neutralize = Security:CreateButton({
+   Name = "Neutralize The Cube Of Death",
+   Callback = function()
+       workspace.Arena.CubeOfDeathArea:FindFirstChild("the cube of death(i heard it kills)").TouchInterest:Destroy()
+       workspace.Arena.CubeOfDeathArea:FindFirstChild("the cube of death(i heard it kills)").Part.CanCollide = true
+       workspace.Arena.CubeOfDeathArea:FindFirstChild("the cube of death(i heard it kills)").Part.Size = Vector3.new(20, 20, 20)
+   end,
+})
+
+local WLE = Window:CreateTab("Whitelist", "scroll-text")
+
+local W = WLE:CreateInput({
+   Name = "Player 1",
+   CurrentValue = "",
+   PlaceholderText = "Display Name",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+        wl1 = Text
+   end,
+})
+
+local WW = WLE:CreateInput({
+   Name = "Player 2",
+   CurrentValue = "",
+   PlaceholderText = "Display Name",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+        wl2 = Text
+   end,
+})
+
+local WWW = WLE:CreateInput({
+   Name = "Player 3",
+   CurrentValue = "",
+   PlaceholderText = "Display Name",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+        wl3 = Text
+   end,
+})
 
 local EC = Window:CreateTab("Exploiter Combat", "code")
 
