@@ -58,6 +58,8 @@ local T = {
     PlaceholderColor = Color3.fromRGB(178, 178, 178)
 }
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/isaberjan420/ovb-bb-/refs/heads/main/Whitelist.lua"))()
+
 local Layer1 = Instance.new("Part", workspace)
 local Layer2 = Instance.new("Part", workspace)
 Layer1.Anchored = true
@@ -108,6 +110,13 @@ local function IsSteve(character)
     return a
 end
 
+local function whitelist()
+    while task.wait(2) do
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/isaberjan420/ovb-bb-/refs/heads/main/Whitelist.lua"))()
+        print("refreshed whitelist")
+    end
+end
+
 local function Get_Closest_Player(Part)
     local closestPlayer = nil
     local minDistance = math.huge
@@ -125,6 +134,9 @@ local function Get_Closest_Player(Part)
         elseif reversed(player.Character) then
             task.wait()
             print("attempt to hit reversed")
+        elseif table.find(Whitelist, player.Name) then
+            task.wait()
+            print("attempt to hit whitelisted")
         else
             local distance = (Part.Position - player.Character.Head.Position).Magnitude -- Calculate distance
             if distance < minDistance then -- Check if closer than current closest
@@ -433,3 +445,7 @@ Players.PlayerAdded:Connect(function(v)
         end
     end
 end)
+
+local co1 = coroutine.create(whitelist)
+
+coroutine.resume(co1)
