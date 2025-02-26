@@ -120,7 +120,7 @@ end
 
 local function loopgt()
     while task.wait(0.01) do
-        if looptp = true then
+        if looptp == true then
             for _,v in pairs(Players:GetPlayers()) do
                 if v.DisplayName == expt then
                     local a = Back_Position(v.Character.PrimaryPart, -(offset))
