@@ -10,9 +10,6 @@ local AR = 25
 local SACD = false
 local SAT = false
 local BRL = false
-local Link_p = false
-local OVERKILL_p = false
-local Flex_p = false
 local Void_p1 = false
 local Void_p2 = false
 local Method = "A"
@@ -214,18 +211,6 @@ local AT = SA:CreateToggle({
     end,
  })
 
-local Range = SA:CreateSlider({
-   Name = "Aura Range",
-   Range = {10, 90},
-   Increment = 1,
-   Suffix = "Studs",
-   CurrentValue = 25,
-   Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-         AR = Value
-   end,
-})
-
 local BR = SA:CreateToggle({
     Name = "Bypass Ragdoll",
     CurrentValue = false,
@@ -235,111 +220,29 @@ local BR = SA:CreateToggle({
     end,
  })
 
+local Range = SA:CreateSlider({
+   Name = "Aura Range",
+   Range = {0, 50},
+   Increment = 1,
+   Suffix = "Studs",
+   CurrentValue = 25,
+   Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+         AR = Value
+   end,
+})
+
+local Slap = SA:CreateKeybind({
+   Name = "Slap",
+   CurrentKeybind = "Q",
+   HoldToInteract = false,
+   Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Keybind)
+        ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
+   end,
+})
+
 local Security = Window:CreateTab("Security", "shield")
-
-local GP = Security:CreateSection("Glove Protection")
-
-local BR = Security:CreateToggle({
-    Name = "OVERKILL",
-    CurrentValue = false,
-    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        OVERKILL_p = Value
-        wait()
-        for _,v in pairs(Players:GetPlayers()) do
-            if v.Name == Players.LocalPlayer.Name then
-                task.wait()
-            else
-                if v.leaderstats.Glove == "OVERKILL" then
-                    if OVERKILL_p == true then
-                        local boz = Instance.new("Part", workspace)
-                        boz.Anchored = true
-                        boz.Size = Vector3.new(15, 15, 15)
-                        boz.Material = Enum.Material.ForceField
-                        boz.Name = "overboz"..v.Name
-                        RunService.RenderStepped:Connect(function()
-                            boz.Position = v.Character:FindFirstChildWhichIsA("Part").Position
-                        end)
-                    elseif OVERKILL_p == false then
-                        for _,b in pairs(workspace:GetChildren()) do
-                            if string.sub(b.Name, 1, 7) == "overboz" then
-                                b:Destroy()
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end,
- })
-
-local BR = Security:CreateToggle({
-    Name = "Link",
-    CurrentValue = false,
-    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        Link_p = Value
-        wait()
-        for _,v in pairs(Players:GetPlayers()) do
-            if v.Name == Players.LocalPlayer.Name then
-                task.wait()
-            else
-                if v.leaderstats.Glove == "Link" then
-                    if Link_p == true then
-                        local boz = Instance.new("Part", workspace)
-                        boz.Anchored = true
-                        boz.Size = Vector3.new(15, 15, 15)
-                        boz.Material = Enum.Material.ForceField
-                        boz.Name = "linkboz"..v.Name
-                        RunService.RenderStepped:Connect(function()
-                            boz.Position = v.Character:FindFirstChildWhichIsA("Part").Position
-                        end)
-                    elseif Link_p == false then
-                        for _,b in pairs(workspace:GetChildren()) do
-                            if string.sub(b.Name, 1, 7) == "linkboz" then
-                                b:Destroy()
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end,
- })
-
-local BR = Security:CreateToggle({
-    Name = "The Flex",
-    CurrentValue = false,
-    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        Flex_p = Value
-        wait()
-        for _,v in pairs(Players:GetPlayers()) do
-            if v.Name == Players.LocalPlayer.Name then
-                task.wait()
-            else
-                if v.leaderstats.Glove == "The Flex" then
-                    if Flex_p == true then
-                        local boz = Instance.new("Part", workspace)
-                        boz.Anchored = true
-                        boz.Size = Vector3.new(15, 15, 15)
-                        boz.Material = Enum.Material.ForceField
-                        boz.Name = "flexboz"..v.Name
-                        RunService.RenderStepped:Connect(function()
-                            boz.Position = v.Character:FindFirstChildWhichIsA("Part").Position
-                        end)
-                    elseif Flex_p == false then
-                        for _,b in pairs(workspace:GetChildren()) do
-                            if string.sub(b.Name, 1, 7) == "flexboz" then
-                                b:Destroy()
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end,
- })
 
 local GP = Security:CreateSection("Void Protection")
 
@@ -402,47 +305,6 @@ RunService.RenderStepped:Connect(function()
         Layer2.Parent = workspace
     elseif Void_p2 == false then
         Layer2.Parent = ReplicatedStorage
-    end
-end)
-
-Players.PlayerAdded:Connect(function(v)
-    if v.Name == Players.LocalPlayer.Name then
-        task.wait()
-    else
-        if v.leaderstats.Glove == "The Flex" then
-            if Flex_p == true then
-                local boz = Instance.new("Part", workspace)
-                boz.Anchored = true
-                boz.Size = Vector3.new(15, 15, 15)
-                boz.Material = Enum.Material.ForceField
-                boz.Name = "flexboz"..v.Name
-                RunService.RenderStepped:Connect(function()
-                    boz.Position = v.Character:FindFirstChildWhichIsA("Part").Position
-                end)
-            end
-        elseif v.leaderstats.Glove == "OVERKILL" then
-            if OVERKILL_p == true then
-                local boz = Instance.new("Part", workspace)
-                boz.Anchored = true
-                boz.Size = Vector3.new(15, 15, 15)
-                boz.Material = Enum.Material.ForceField
-                boz.Name = "overboz"..v.Name
-                RunService.RenderStepped:Connect(function()
-                    boz.Position = v.Character:FindFirstChildWhichIsA("Part").Position
-                end)
-            end
-        elseif v.leaderstats.Glove == "Link" then
-            if Link_p == true then
-                local boz = Instance.new("Part", workspace)
-                boz.Anchored = true
-                boz.Size = Vector3.new(15, 15, 15)
-                boz.Material = Enum.Material.ForceField
-                boz.Name = "linkboz"..v.Name
-                RunService.RenderStepped:Connect(function()
-                    boz.Position = v.Character:FindFirstChildWhichIsA("Part").Position
-                end)
-            end
-        end
     end
 end)
 
