@@ -308,9 +308,9 @@ local TargetName = EC:CreateInput({
 local TSET = EC:CreateButton({
    Name = "Auto Pick Target",
    Callback = function()
-        local a = Get_Closest_Player(Players.LocalPlayer.Character.Head).DisplayName
+        local a = Get_Closest_Player(Players.LocalPlayer.Character.Head)
         wait()
-       TargetName:Set(a)
+       TargetName:Set(a.DisplayName)
    end,
 })
 
@@ -345,8 +345,9 @@ RunService.RenderStepped:Connect(function()
             if ragdolled(Players.LocalPlayer.Character) then
                 if BRL == true then
                     if SAT == true then
-                        SACD = true
-                        ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
+                        local a = Get_Closest_Player(Players.LocalPlayer.Character.Head)
+                        wait()
+                        ReplicatedStorage:FindFirstChild(CG):FireServer(a.Character.Head)
                         wait(0.3)
                         SACD = false
                     end
@@ -354,7 +355,9 @@ RunService.RenderStepped:Connect(function()
             else
                 if SAT == true then
                     SACD = true
-                    ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
+                    local a = Get_Closest_Player(Players.LocalPlayer.Character.Head)
+                    wait()
+                    ReplicatedStorage:FindFirstChild(CG):FireServer(a.Character.Head)
                     wait(0.3)
                     SACD = false
                 end
