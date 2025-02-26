@@ -345,7 +345,7 @@ RunService.RenderStepped:Connect(function()
                         local a = Get_Closest_Player(Players.LocalPlayer.Character.Head)
                         wait(0.02)
                         ReplicatedStorage:FindFirstChild(CG):FireServer(a.Character.Head)
-                        wait(0.3)
+                        wait(0.4)
                         SACD = false
                     end
                 end
@@ -355,7 +355,7 @@ RunService.RenderStepped:Connect(function()
                     local a = Get_Closest_Player(Players.LocalPlayer.Character.Head)
                     wait(0.02)
                     ReplicatedStorage:FindFirstChild(CG):FireServer(a.Character.Head)
-                    wait(0.3)
+                    wait(0.4)
                     SACD = false
                 end
             end
