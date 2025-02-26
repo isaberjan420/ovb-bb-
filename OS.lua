@@ -1,14 +1,12 @@
 repeat task.wait() until game:IsLoaded()
 wait(1)
-print("loading")
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local HL = {"Left Leg", "Right Leg", "Right Arm", "Left Arm", "Torso", "Head"}
-local CRNT = 2
 local CG = "b"
-local AR = 20
+local AR = 25
 local SACD = false
 local SAT = false
 local BRL = false
@@ -17,11 +15,7 @@ local OVERKILL_p = false
 local Flex_p = false
 local Void_p1 = false
 local Void_p2 = false
-local AF = false
-local Delay = 3
-local AT = false
-local WL= {"themagewizard2", "someone_w0w", "missayla86"}
-local RH = {"Roblox"}
+local Method = "A"
 local T = {
     TextColor = Color3.fromRGB(192, 192, 192),
 
@@ -89,8 +83,6 @@ local function ragdolled(character)
     for i,v in pairs(character:GetChildren()) do
         if string.sub(v.Name, 1, 4) == "Fake" then
             r = true
-        elseif character.Ragdolled == true then
-            r = true
         end
     end
     return r
@@ -121,18 +113,9 @@ local function Get_Closest_Player(Part)
     local minDistance = math.huge
   
     for _, player in pairs(game:GetService("Players"):GetPlayers()) do
-      if player.Character and player.Character:FindFirstChild("Humanoid") and player.Character:FindFirstChild("Humanoid").Health > 1 and Players.LocalPlayer.Character:FindFirstChild("Humanoid").Health > 1 then
+      if player.Character and player.Character:FindFirstChild("Humanoid") and player.Character:FindFirstChild("Humanoid").Health > 0 then
         if player.Name == Players.LocalPlayer.Name then
             task.wait()
-        elseif player.Name == "imHDsaucer" then
-            task.wait()
-            print("attempt to hit steve")
-        elseif player.Name == "missayla86" then
-            task.wait()
-            print("attempt to hit steve")
-        elseif table.find(WL, player.Name) then
-            task.wait()
-            print("attempt to hit steve")
         elseif IsSteve(player.Character) then
             task.wait()
             print("attempt to hit steve")
@@ -142,9 +125,6 @@ local function Get_Closest_Player(Part)
         elseif reversed(player.Character) then
             task.wait()
             print("attempt to hit reversed")
-        elseif (Part.Position - player.Character.Head.Position).Magnitude > AR then
-            task.wait()
-            print("out of range")
         else
             local distance = (Part.Position - player.Character.Head.Position).Magnitude -- Calculate distance
             if distance < minDistance then -- Check if closer than current closest
@@ -198,27 +178,17 @@ local GP = SA:CreateSection("Glove Picker")
 
 local Picker = SA:CreateDropdown({
    Name = "Available Gloves",
-   Options = {"Default", "Extended", "Snow", "Squid", "Reaper", "Killstreak", "Orbit"},
+   Options = {"Default","Killstreak"},
    CurrentOption = {"Default"},
    MultipleOptions = false,
    Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Options)
       if Options[1] == "Default" then
          CG = "b"
-        elseif Options[1] == "Extended" then
-         CG = "b"
-        elseif Options[1] == "Snow" then
-         CG = "SnowHit"
-        elseif Options[1] == "Squid" then
-         CG = "GeneralHit"
-        elseif Options[1] == "Reaper" then
-         CG = "ReaperHit"
-        elseif Options[1] == "Killstreak" then
-         CG = "KSHit" 
-        elseif Options[1] == "Orbit" then
-         CG = "Orbihit"
-        end
-    end,
+      elseif Options[1] == "Killstreak" then
+         CG = "KSHit"      
+      end
+   end,
 })
 
 local AC = SA:CreateSection("Aura Customization")
@@ -234,10 +204,10 @@ local AT = SA:CreateToggle({
 
 local Range = SA:CreateSlider({
    Name = "Aura Range",
-   Range = {0, 40},
+   Range = {10, 90},
    Increment = 1,
    Suffix = "Studs",
-   CurrentValue = 20,
+   CurrentValue = 25,
    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
          AR = Value
@@ -379,63 +349,28 @@ local BR = Security:CreateToggle({
     end,
  })
 
-local function test()
-    print(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head.Name)
-end
-
-local function check()
-    local a = false
-    local success, result = pcall(test)
-    if success then
-        a = true
-    end
-
-    return a
-end
 RunService.RenderStepped:Connect(function()
     if SACD == false then
         if Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health < 1 then
             SACD = true
-            wait(5)
+            wait(4)
             SACD = false
         else
             if ragdolled(Players.LocalPlayer.Character) then
                 if BRL == true then
                     if SAT == true then
-                        if check() == true then
-                            if CRNT == #HL + 1 then
-                                CRNT = 1
-                            else
-                            SACD = true
-                            local clo = Get_Closest_Player(Players.LocalPlayer.Character.Head)
-                            wait(0.1)
-                            print(CRNT)
-                            ReplicatedStorage:FindFirstChild(CG):FireServer(clo.Character:FindFirstChild(HL[CRNT]))
-                            CRNT += 1
-                            task.wait(Delay + 0.05)
-                            SACD = false
-                            wait(1)
-                            end
-                        end
+                        SACD = true
+                        ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
+                        wait(0.3)
+                        SACD = false
                     end
                 end
             else
                 if SAT == true then
-                    if check() == true then
-                        if CRNT == #HL + 1 then
-                            CRNT = 1
-                        else
-                            SACD = true
-                            local clo = Get_Closest_Player(Players.LocalPlayer.Character.Head)
-                            wait(0.1)
-                            print(CRNT)
-                            ReplicatedStorage:FindFirstChild(CG):FireServer(clo.Character:FindFirstChild(HL[CRNT]))
-                            CRNT += 1
-                            task.wait(Delay + 0.05)
-                            SACD = false
-                            wait(1)
-                        end
-                    end
+                    SACD = true
+                    ReplicatedStorage:FindFirstChild(CG):FireServer(Get_Closest_Player(Players.LocalPlayer.Character.Head).Character.Head)
+                    wait(0.3)
+                    SACD = false
                 end
             end
         end
@@ -462,7 +397,6 @@ Players.PlayerAdded:Connect(function(v)
     if v.Name == Players.LocalPlayer.Name then
         task.wait()
     else
-        wait(1)
         if v.leaderstats.Glove == "The Flex" then
             if Flex_p == true then
                 local boz = Instance.new("Part", workspace)
@@ -499,10 +433,3 @@ Players.PlayerAdded:Connect(function(v)
         end
     end
 end)
-
-Rayfield:Notify({
-   Title = "Celerity",
-   Content = "Successfully Loaded, Enjoy!",
-   Duration = 5,
-   Image = "check",
-})
