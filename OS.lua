@@ -159,9 +159,6 @@ local function Get_Closest_Player(Part)
         elseif table.find(Whitelist, player.Name) then
             task.wait()
             print("attempt to hit whitelisted")
-        elseif (Part.Position - player.Character.Head.Position).Magnitude > AR then
-            task.wait()
-            print("out of range")
         else
             local distance = (Part.Position - player.Character.Head.Position).Magnitude -- Calculate distance
             if distance < minDistance then -- Check if closer than current closest
