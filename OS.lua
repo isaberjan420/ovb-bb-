@@ -119,13 +119,13 @@ local function IsSteve(character)
 end
 
 local function loopgt()
-    while task.wait(0.01) do
+    while wait() do
         if looptp == true then
             for _,v in pairs(Players:GetPlayers()) do
                 if v.DisplayName == expt then
-                    local a = Back_Position(v.Character.PrimaryPart, -(offset))
+                    local a = (Back_Position(v.Character.PrimaryPart, -(offset)))
                     wait()
-                    Players.Character:MoveTo(a)
+                    Players.LocalPlayer.Character:MoveTo(a)
                 end
             end
         end
@@ -159,6 +159,9 @@ local function Get_Closest_Player(Part)
         elseif table.find(Whitelist, player.Name) then
             task.wait()
             print("attempt to hit whitelisted")
+        elseif (Part.Position - player.Character.Head.Position).Magnitude > AR then
+            task.wait()
+            print("out of range")
         else
             local distance = (Part.Position - player.Character.Head.Position).Magnitude -- Calculate distance
             if distance < minDistance then -- Check if closer than current closest
@@ -314,7 +317,7 @@ local TSET = EC:CreateButton({
 local Offset = EC:CreateSlider({
    Name = "Offset",
    Range = {0, 5},
-   Increment = 10,
+   Increment = 1,
    Suffix = "Studs",
    CurrentValue = 1,
    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -378,6 +381,6 @@ end)
 
 local co1 = coroutine.create(whitelist)
 local co1 = coroutine.create(loopgt)
-
+wait(0.05)
 coroutine.resume(co1)
 coroutine.resume(co2)
