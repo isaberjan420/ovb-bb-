@@ -279,6 +279,7 @@ local Picker = SA:CreateDropdown({
          fireclickdetector(workspace.Lobby.Nightmare.ClickDetector)
       elseif Options[1] == "Summon Cloud" then
          fireclickdetector(workspace.Lobby.Cloud.ClickDetector)
+         wait(0.1)
          game:GetService("ReplicatedStorage").CloudAbility:FireServer()
       end
    end,
