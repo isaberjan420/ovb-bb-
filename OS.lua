@@ -137,7 +137,7 @@ local function loopgt()
 end
 
 local function ANTIFLING()
-    while task.wait(0.01) do
+    while wait() do
         if AFG == true then
             for _,v in pairs(workspace:GetDescendants()) do
                 if v.Parent.Name == Players.LocalPlayer.Name then
