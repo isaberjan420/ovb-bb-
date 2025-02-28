@@ -257,7 +257,7 @@ local GP = SA:CreateSection("Glove Picker")
 
 local Picker = SA:CreateDropdown({
    Name = "Available Gloves",
-   Options = {"Default", "Reaper", "Killstreak", "Ice", "Nightmare"},
+   Options = {"Default", "Reaper", "Killstreak", "Ice", "Nightmare", "Summon Cloud"},
    CurrentOption = {"Default"},
    MultipleOptions = false,
    Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -277,6 +277,9 @@ local Picker = SA:CreateDropdown({
       elseif Options[1] == "Nightmare" then
          CG = "nightmarehit"
          fireclickdetector(workspace.Lobby.Nightmare.ClickDetector)
+      elseif Options[1] == "Summon Cloud" then
+         fireclickdetector(workspace.Lobby.Cloud.ClickDetector)
+         game:GetService("ReplicatedStorage").CloudAbility:FireServer()
       end
    end,
 })
