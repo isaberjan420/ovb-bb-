@@ -13,6 +13,7 @@ local BRL = false
 local Void_p1 = false
 local Void_p2 = false
 local looptp = false
+local AFG = false
 local expt = "Roblox"
 local offset = 1
 getgenv().wl1 = "a"
@@ -129,6 +130,20 @@ local function loopgt()
                     local a = (Back_Position(v.Character.PrimaryPart, -(offset)))
                     wait()
                     Players.LocalPlayer.Character:MoveTo(a)
+                end
+            end
+        end
+    end
+end
+
+local function ANTIFLING()
+    while wait() do
+        if AFG == true then
+            for _,v in pairs(workspace:GetDescendants()) do
+                if v.Name == "Head" then
+                    v.CanCollide = false
+                elseif v.Name == "Torso" then
+                    v.CanCollide = false
                 end
             end
         end
@@ -388,6 +403,15 @@ local ECTGL = EC:CreateToggle({
    end,
 })
 
+local ANTFLNG = EC:CreateToggle({
+   Name = "Anti Fling",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        AFG = Value
+   end,
+})
+
 RunService.RenderStepped:Connect(function()
     if SACD == false then
         if Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health < 1 then
@@ -436,7 +460,9 @@ RunService.RenderStepped:Connect(function()
 end)
 
 local co1 = coroutine.create(whitelist)
-local co1 = coroutine.create(loopgt)
+local co2 = coroutine.create(loopgt)
+local co3 = coroutine.create(ANTIFLING)
 wait(0.05)
 coroutine.resume(co1)
 coroutine.resume(co2)
+coroutine.resume(co3)
