@@ -257,17 +257,23 @@ local GP = SA:CreateSection("Glove Picker")
 
 local Picker = SA:CreateDropdown({
    Name = "Available Gloves",
-   Options = {"Default","Killstreak", "Nightmare"},
+   Options = {"Default","Killstreak", "Ice", "Nightmare"},
    CurrentOption = {"Default"},
    MultipleOptions = false,
    Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Options)
       if Options[1] == "Default" then
          CG = "b"
+         fireclickdetector(workspace.Lobby.Default.ClickDetector)
       elseif Options[1] == "Killstreak" then
          CG = "KSHit"
+         fireclickdetector(workspace.Lobby.Killstreak.ClickDetector)
+      elseif Options[1] == "Ice" then
+         CG = "IceHit"
+         fireclickdetector(workspace.Lobby.Killstreak.ClickDetector)
       elseif Options[1] == "Nightmare" then
          CG = "nightmarehit"
+         fireclickdetector(workspace.Lobby.Nightmare.ClickDetector)
       end
    end,
 })
@@ -328,6 +334,7 @@ local Mthd = SA:CreateDropdown({
          Throttle = 0.1
       end
    end,
+})
 
 local Slap = SA:CreateKeybind({
    Name = "Slap",
