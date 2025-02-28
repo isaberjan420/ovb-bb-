@@ -11,6 +11,7 @@ local SACD = false
 local SAT = false
 local BRL = false
 local Void_p1 = false
+local Mixedd = false
 local Void_p2 = false
 local looptp = false
 local AFG = false
@@ -136,17 +137,28 @@ local function loopgt()
     end
 end
 
-local function ANTIFLING()
+local function MXD()
     while wait() do
+        if Mixedd == true then
+            for _,v in pairs(Players:GetPlayers()) do
+                if v.DisplayName == expt then
+                    local a = (v.Character.PrimaryPart.Position + Vector3.new(math.random(-4, 4), math.random(-4, 4), math.random(-4, 4)))
+                    wait()
+                    Players.LocalPlayer.Character:MoveTo(a)
+                end
+            end
+        end
+    end
+end
+
+local function ANTIFLING()
+    while task.wait(0.5) do
         if AFG == true then
             for _,v in pairs(workspace:GetDescendants()) do
-                if v.Parent.Name == Players.LocalPlayer.Name then
-                    task.wait()
-                else
-                    if v.Name == "Head" then
-                        v.CanCollide = false
-                    elseif v.Name == "Torso" then
-                        v.CanCollide = false
+                if v.Name == "Head" then
+                    v.CanCollide = false
+                elseif v.Name == "Torso" then
+                    v.CanCollide = false
                 end
             end
         end
@@ -190,7 +202,7 @@ local function Get_Closest_Player(Part)
             task.wait()
             print("attempt to hit Wwwhitelisted")
         else
-            local distance = (Part.Position - player.Character.Head.Position).Magnitude -- Calculate distance
+            local distance = (Part.Position - player.Character:FindFirstChildWhichIsA("Part").Position).Magnitude -- Calculate distance
             if distance < minDistance then -- Check if closer than current closest
                 minDistance = distance -- Update minimum distance
                 closestPlayer = player -- Update closest player
@@ -406,6 +418,15 @@ local ECTGL = EC:CreateToggle({
    end,
 })
 
+local MXDTP = EC:CreateToggle({
+   Name = "Random Direction",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        Mixedd = Value
+   end,
+})
+
 local ANTFLNG = EC:CreateToggle({
    Name = "Anti Fling",
    CurrentValue = false,
@@ -414,7 +435,6 @@ local ANTFLNG = EC:CreateToggle({
         AFG = Value
    end,
 })
-
 RunService.RenderStepped:Connect(function()
     if SACD == false then
         if Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health < 1 then
@@ -465,7 +485,9 @@ end)
 local co1 = coroutine.create(whitelist)
 local co2 = coroutine.create(loopgt)
 local co3 = coroutine.create(ANTIFLING)
+local co4 = coroutine.create(MXD)
 wait(0.05)
 coroutine.resume(co1)
 coroutine.resume(co2)
 coroutine.resume(co3)
+coroutine.resume(co4)
