@@ -137,13 +137,16 @@ local function loopgt()
 end
 
 local function ANTIFLING()
-    while wait() do
+    while task.wait(0.01) do
         if AFG == true then
             for _,v in pairs(workspace:GetDescendants()) do
-                if v.Name == "Head" then
-                    v.CanCollide = false
-                elseif v.Name == "Torso" then
-                    v.CanCollide = false
+                if v.Parent.Name == Players.LocalPlayer.Name then
+                    task.wait()
+                else
+                    if v.Name == "Head" then
+                        v.CanCollide = false
+                    elseif v.Name == "Torso" then
+                        v.CanCollide = false
                 end
             end
         end
