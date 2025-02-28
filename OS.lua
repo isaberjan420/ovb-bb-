@@ -15,9 +15,11 @@ local Mixedd = false
 local Void_p2 = false
 local looptp = false
 local AFG = false
+local Throttle = 0
+local Method = 1
 local expt = "Roblox"
 local offset = 1
-Delay = 0.55
+local Delay = 0.55
 getgenv().wl1 = "a"
 getgenv().wl2 = "b"
 getgenv().wl3 = "c"
@@ -262,10 +264,8 @@ local Picker = SA:CreateDropdown({
    Callback = function(Options)
       if Options[1] == "Default" then
          CG = "b"
-         Delay = 0.6
       elseif Options[1] == "Killstreak" then
          CG = "KSHit"
-         Delay = 0.4
       end
    end,
 })
@@ -301,6 +301,31 @@ local Range = SA:CreateSlider({
          AR = Value
    end,
 })
+
+local Mthd = SA:CreateDropdown({
+   Name = "Available Gloves",
+   Options = {"Clean", "Slow + Throttling", "Slow", "Aggressive + Throttling", "Aggressive"},
+   CurrentOption = {"Default"},
+   MultipleOptions = false,
+   Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Options)
+      if Options[1] == "Slow" then
+         Delay = 0.6
+         Throttle = 0
+      elseif Options[1] == "Clean" then
+         Delay = 1
+         Throttle = 0
+      elseif Options[1] == "Slow + Throttling" then
+         Delay = 0.6
+         Throttle = 0.1
+      elseif Options[1] == "Aggressive" then
+         Delay = 0.4
+         Throttle = 0
+      elseif Options[1] == "Aggressive + Throttling" then
+         Delay = 0.4
+         Throttle = 0.1
+      end
+   end,
 
 local Slap = SA:CreateKeybind({
    Name = "Slap",
@@ -449,7 +474,7 @@ RunService.RenderStepped:Connect(function()
                 if BRL == true then
                     if SAT == true then
                         local a = Get_Closest_Player(Players.LocalPlayer.Character.Head)
-                        wait()
+                        wait(Throttle)
                         ReplicatedStorage:FindFirstChild(CG):FireServer(a.Character.Head)
                         task.wait(Delay)
                         SACD = false
@@ -459,7 +484,7 @@ RunService.RenderStepped:Connect(function()
                 if SAT == true then
                     SACD = true
                     local a = Get_Closest_Player(Players.LocalPlayer.Character.Head)
-                    wait()
+                    wait(Throttle)
                     ReplicatedStorage:FindFirstChild(CG):FireServer(a.Character.Head)
                     task.wait(Delay)
                     SACD = false
