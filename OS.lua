@@ -270,7 +270,7 @@ local Picker = SA:CreateDropdown({
          fireclickdetector(workspace.Lobby.Killstreak.ClickDetector)
       elseif Options[1] == "Ice" then
          CG = "IceHit"
-         fireclickdetector(workspace.Lobby.Killstreak.ClickDetector)
+         fireclickdetector(workspace.Lobby.Ice.ClickDetector)
       elseif Options[1] == "Nightmare" then
          CG = "nightmarehit"
          fireclickdetector(workspace.Lobby.Nightmare.ClickDetector)
