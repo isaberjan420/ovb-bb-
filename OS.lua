@@ -17,6 +17,7 @@ local looptp = false
 local AFG = false
 local expt = "Roblox"
 local offset = 1
+Delay = 0.4
 getgenv().wl1 = "a"
 getgenv().wl2 = "b"
 getgenv().wl3 = "c"
@@ -261,8 +262,10 @@ local Picker = SA:CreateDropdown({
    Callback = function(Options)
       if Options[1] == "Default" then
          CG = "b"
+         Delay = 0.5
       elseif Options[1] == "Killstreak" then
-         CG = "KSHit"      
+         CG = "KSHit"
+         Delay = 0.4
       end
    end,
 })
@@ -446,9 +449,9 @@ RunService.RenderStepped:Connect(function()
                 if BRL == true then
                     if SAT == true then
                         local a = Get_Closest_Player(Players.LocalPlayer.Character.Head)
-                        wait(0.02)
+                        wait()
                         ReplicatedStorage:FindFirstChild(CG):FireServer(a.Character.Head)
-                        wait(0.4)
+                        wait(Delay)
                         SACD = false
                     end
                 end
@@ -456,9 +459,9 @@ RunService.RenderStepped:Connect(function()
                 if SAT == true then
                     SACD = true
                     local a = Get_Closest_Player(Players.LocalPlayer.Character.Head)
-                    wait(0.02)
+                    wait()
                     ReplicatedStorage:FindFirstChild(CG):FireServer(a.Character.Head)
-                    wait(0.4)
+                    wait(Delay)
                     SACD = false
                 end
             end
